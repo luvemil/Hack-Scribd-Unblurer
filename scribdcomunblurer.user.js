@@ -24,3 +24,24 @@ setInterval(function() {
     $('.text_layer').css('color', '#000');
     $('.text_layer').css('text-shadow', '0px 0px 0px #000');
 }, 1000);
+//--- Create a button. It will be displayed by Scribd's CSS
+var zNode = document.createElement('a');
+zNode.className = "flat_btn primary_action_btn download_btn";
+zNode.innerHTML = "JS fu";
+zNode.setAttribute('id', 'my_new_shiny_button');
+document.getElementsByClassName('toolbar_left_actions').appendChild(zNode);
+//--- Activate button
+document.getElementById('my_new_shiny_button').addEventListener (
+  "click", ButtonClickAction, false
+);
+function ButtonClickAction (zEvent) {
+    /*--- Some action, we need to scoll down to the bottom of the page
+          for this to work.
+    */
+    var img_tags = document.getElementsByClassName('absimg');
+    var img_links = [];
+    for (var i=0; i < img_tags.length; i++){
+      img_links[i] = img_tags["src"];
+    }
+    //--- Get a pdf from all the img links
+}
