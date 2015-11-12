@@ -29,7 +29,7 @@ var zNode = document.createElement('a');
 zNode.className = "flat_btn primary_action_btn download_btn";
 zNode.innerHTML = "JS fu";
 zNode.setAttribute('id', 'my_new_shiny_button');
-document.getElementsByClassName('toolbar_left_actions').appendChild(zNode);
+document.getElementsByClassName('toolbar_left_actions')[0].appendChild(zNode);
 //--- Activate button
 document.getElementById('my_new_shiny_button').addEventListener (
   "click", ButtonClickAction, false
@@ -38,6 +38,18 @@ function ButtonClickAction (zEvent) {
     /*--- Some action, we need to scoll down to the bottom of the page
           for this to work.
     */
+    function myrem(n){
+      a = document.getElementById("outer_page_"+n);
+      a.className = a.className + " hidden";
+    }
+    function mynext(n){
+      if (n>23) {
+        return 0;
+      }
+      myrem(n);
+      setTimeout(mynext(n+1),1000);
+    }
+    mynext(1);
     var img_tags = document.getElementsByClassName('absimg');
     var img_links = [];
     for (var i=0; i < img_tags.length; i++){
