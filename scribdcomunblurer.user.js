@@ -66,25 +66,25 @@ function get_link_from_json(json_url) {
 }
 
 function ButtonClickAction (zEvent) {
-    //--- Get the images the ugly way: by parsing the source of the scripts.
-    a = document.getElementsByClassName("outer_page_container")[0];
-    b = a.getElementsByClassName("script");
+  //--- Get the images the ugly way: by parsing the source of the scripts.
+  a = document.getElementsByClassName("outer_page_container")[0];
+  b = a.getElementsByClassName("script");
 
-    img_assets = [];
-    for(var i=0; i<b.length;i++){
-      asset = get_asset(b[i]);
-      if (asset != ""){
-        img_assets.push(asset);
-      }
+  img_assets = [];
+  for(var i=0; i<b.length;i++){
+    asset = get_asset(b[i]);
+    if (asset != ""){
+      img_assets.push(asset);
     }
+  }
 
-    img_links = [];
-    for(var i=0; i<img_assets.length; i++){
-      link = get_link_from_json(img_assets[i]);
-      if (link != ""){
-        img_links.push(link);
-      }
+  img_links = [];
+  for(var i=0; i<img_assets.length; i++){
+    link = get_link_from_json(img_assets[i]);
+    if (link != ""){
+      img_links.push(link);
     }
+  }
 
-    //--- Get a pdf from all the img links
+  //--- Get a pdf from all the img links
 }
