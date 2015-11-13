@@ -49,22 +49,19 @@ function get_asset(inner_html) {
   }
 }
 
-function get_link_from_json(json_url) {
+function get_link_from_json(json_url, db) {
   /*--- Get the json file file which contains the link to the image, then parse
         it with a regexp to get the link. Not really guaranteed to work on each
         scribd file...
   */
-  $.ajax({
+  return $.ajax({
     url:  json_url,
     dataType: "text",
     success:  function(data){
-      var img_regexp = /orig\=\\\"(.*?)\\\"/g;
+      var img_regexp = /orig\=\\\"(.*\/images\/(\d+)\-.*?)\\\"/g;
       var match = img_regexp.exec(data);
       if (match) {
-        return match[1];
-      }
-      else {
-        return "";
+        db[match[2].toString()] =  match[1];
       }
     }
   });
@@ -85,16 +82,12 @@ function ButtonClickAction (zEvent) {
     }
   }
 
-  img_links = [];
+  var img_links = ;
   for(var i=0; i<img_assets.length; i++){
     /*--- This loop actually uses an ajax call so everything should be changed
           to work asynchronously.
     */
-    link = get_link_from_json(img_assets[i]);
-    if (link != ""){
-      img_links.push(link);
-    }
+    link = get_link_from_json(img_assets[i], img_links);
   }
-  alert("Found "+img_links.length+" image links!");
   //--- Get a pdf from all the img links
 }
