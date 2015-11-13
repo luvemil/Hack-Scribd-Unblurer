@@ -82,7 +82,7 @@ function ButtonClickAction (zEvent) {
     }
   }
 
-  var img_links = ;
+  var img_links = {};
   for(var i=0; i<img_assets.length; i++){
     /*--- This loop actually uses an ajax call so everything should be changed
           to work asynchronously.
