@@ -42,7 +42,7 @@ function ButtonClickAction (zEvent) {
       /*--- Here we will use some regex to extract the url of the the asset
             which will give us our image link.
       */
-      ;
+      return "";
     }
     img_assets = [];
     for(var i=0; i<b.length;i++){
