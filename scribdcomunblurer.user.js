@@ -54,7 +54,7 @@ function get_link_from_json(json_url) {
         it with a regexp to get the link. Not really guaranteed to work on each
         scribd file...
   */
-  foo = $.getJSON(json_url);
+  var foo = $.getJSON(json_url);
   var img_regexp = /orig\=\\\"(.*?)\\\"/g;
   var match = img_regexp.exec(foo.responseText);
   if (match) {
@@ -66,13 +66,15 @@ function get_link_from_json(json_url) {
 }
 
 function ButtonClickAction (zEvent) {
-  //--- Get the images the ugly way: by parsing the source of the scripts.
+  /*--- Get the images the ugly way: by parsing the source of the scripts.
+        This method might miss the initial pages, need to be fixed.
+  */
   a = document.getElementsByClassName("outer_page_container")[0];
-  b = a.getElementsByClassName("script");
+  b = a.getElementsByTagName("script");
 
   img_assets = [];
   for(var i=0; i<b.length;i++){
-    asset = get_asset(b[i]);
+    asset = get_asset(b[i].innerHTML);
     if (asset != ""){
       img_assets.push(asset);
     }
@@ -85,6 +87,6 @@ function ButtonClickAction (zEvent) {
       img_links.push(link);
     }
   }
-
+  alert("Found "+img_links.length+" image links!");
   //--- Get a pdf from all the img links
 }
