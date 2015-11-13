@@ -49,6 +49,22 @@ function get_asset(inner_html) {
   }
 }
 
+function get_link_from_json(json_url) {
+  /*--- Get the json file file which contains the link to the image, then parse
+        it with a regexp to get the link. Not really guaranteed to work on each
+        scribd file...
+  */
+  foo = $.getJSON(json_url);
+  var img_regexp = /orig\=\\\"(.*?)\\\"/g;
+  var match = img_regexp.exec(foo.responseText);
+  if (match) {
+    return match[1];
+  }
+  else {
+    return "";
+  }
+}
+
 function ButtonClickAction (zEvent) {
     //--- Get the images the ugly way: by parsing the source of the scripts.
     a = document.getElementsByClassName("outer_page_container")[0];
@@ -58,7 +74,15 @@ function ButtonClickAction (zEvent) {
     for(var i=0; i<b.length;i++){
       asset = get_asset(b[i]);
       if (asset != ""){
-        img_assets.push("asset");
+        img_assets.push(asset);
+      }
+    }
+
+    img_links = [];
+    for(var i=0; i<img_assets.length; i++){
+      link = get_link_from_json(img_assets[i]);
+      if (link != ""){
+        img_links.push(link);
       }
     }
 
