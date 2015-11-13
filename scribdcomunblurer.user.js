@@ -28,10 +28,10 @@ setInterval(function() {
 var zNode = document.createElement('a');
 zNode.className = "flat_btn primary_action_btn download_btn";
 zNode.innerHTML = "JS fu";
-zNode.setAttribute('id', 'my_new_shiny_button');
+zNode.setAttribute('id', 'my_shiny_new_button');
 document.getElementsByClassName('toolbar_left_actions')[0].appendChild(zNode);
 //--- Activate button
-document.getElementById('my_new_shiny_button').addEventListener (
+document.getElementById('my_shiny_new_button').addEventListener (
   "click", ButtonClickAction, false
 );
 function ButtonClickAction (zEvent) {
