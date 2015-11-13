@@ -54,20 +54,25 @@ function get_link_from_json(json_url) {
         it with a regexp to get the link. Not really guaranteed to work on each
         scribd file...
   */
-  var foo = $.getJSON(json_url);
-  var img_regexp = /orig\=\\\"(.*?)\\\"/g;
-  var match = img_regexp.exec(foo.responseText);
-  if (match) {
-    return match[1];
-  }
-  else {
-    return "";
-  }
+  $.ajax({
+    url:  json_url,
+    dataType: "text",
+    success:  function(data){
+      var img_regexp = /orig\=\\\"(.*?)\\\"/g;
+      var match = img_regexp.exec(data);
+      if (match) {
+        return match[1];
+      }
+      else {
+        return "";
+      }
+    }
+  });
 }
 
 function ButtonClickAction (zEvent) {
   /*--- Get the images the ugly way: by parsing the source of the scripts.
-        This method might miss the initial pages, need to be fixed.
+        This method might miss the initial pages, needs to be fixed.
   */
   a = document.getElementsByClassName("outer_page_container")[0];
   b = a.getElementsByTagName("script");
@@ -82,6 +87,9 @@ function ButtonClickAction (zEvent) {
 
   img_links = [];
   for(var i=0; i<img_assets.length; i++){
+    /*--- This loop actually uses an ajax call so everything should be changed
+          to work asynchronously.
+    */
     link = get_link_from_json(img_assets[i]);
     if (link != ""){
       img_links.push(link);
