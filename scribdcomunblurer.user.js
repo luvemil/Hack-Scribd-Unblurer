@@ -35,25 +35,22 @@ document.getElementById('my_new_shiny_button').addEventListener (
   "click", ButtonClickAction, false
 );
 function ButtonClickAction (zEvent) {
-    /*--- Some action, we need to scoll down to the bottom of the page
-          for this to work.
-    */
-    function myrem(n){
-      a = document.getElementById("outer_page_"+n);
-      a.className = a.className + " hidden";
+    //--- Get the images the ugly way.
+    a = document.getElementsByClassName("outer_page_container")[0];
+    b = a.getElementsByClassName("script");
+    function get_asset(inner_html) {
+      /*--- Here we will use some regex to extract the url of the the asset
+            which will give us our image link.
+      */
+      ;
     }
-    function mynext(n){
-      if (n>23) {
-        return 0;
+    img_assets = [];
+    for(var i=0; i<b.length;i++){
+      asset = get_asset(b[i]);
+      if (asset != ""){
+        img_assets.push("asset");
       }
-      myrem(n);
-      setTimeout(mynext(n+1),1000);
     }
-    mynext(1);
-    var img_tags = document.getElementsByClassName('absimg');
-    var img_links = [];
-    for (var i=0; i < img_tags.length; i++){
-      img_links[i] = img_tags["src"];
-    }
+
     //--- Get a pdf from all the img links
 }
