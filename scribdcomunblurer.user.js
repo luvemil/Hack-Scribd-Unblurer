@@ -34,16 +34,26 @@ document.getElementsByClassName('toolbar_left_actions')[0].appendChild(zNode);
 document.getElementById('my_shiny_new_button').addEventListener (
   "click", ButtonClickAction, false
 );
+
+function get_asset(inner_html) {
+  /*--- Here we use some regex to extract the url of the the asset
+        which will give us our image link.
+  */
+  var url_regexp = /pageParams.contentUrl \= \"(.*)\"/g;
+  var match = url_regexp.exec(inner_html);
+  if (match) {
+    return match[1];
+  }
+  else {
+    return "";
+  }
+}
+
 function ButtonClickAction (zEvent) {
-    //--- Get the images the ugly way.
+    //--- Get the images the ugly way: by parsing the source of the scripts.
     a = document.getElementsByClassName("outer_page_container")[0];
     b = a.getElementsByClassName("script");
-    function get_asset(inner_html) {
-      /*--- Here we will use some regex to extract the url of the the asset
-            which will give us our image link.
-      */
-      return "";
-    }
+
     img_assets = [];
     for(var i=0; i<b.length;i++){
       asset = get_asset(b[i]);
