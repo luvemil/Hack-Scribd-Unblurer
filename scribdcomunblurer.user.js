@@ -84,19 +84,23 @@ function ButtonClickAction (zEvent) {
 
   //--- Get the images already in the page
   var img_links = {};
-  a.getElementsByClassName("absimg").map(function(x){
-    var img_url_regexp = /(.*\/images\/(\d+)\-.*?)/g;
-    var match = img_url_regexp.exec(x["src"]);
-    if (match && match[2]){
-      img_links[match[2].toString()] = match[1];
-    }
-  });
+
   var downloads = [];
   for(var i=0; i<img_assets.length; i++){
     /*--- This loop actually uses an ajax call so everything should be changed
           to work asynchronously.
     */
     downloads.push(get_link_from_json(img_assets[i], img_links));
+  }
+
+  images = a.getElementsByClassName("absimg");
+  for (var i=0; i<images.length; i++){
+    x = images[i];
+    var img_url_regexp = /(.*\/images\/(\d+)\-.*?)/g;
+    var match = img_url_regexp.exec(x.getAttribute("orig"));
+    if (match && match[2]){
+      img_links[match[2].toString()] = match[1];
+    }
   }
 
   $.when.apply($, downloads).done(function (){
