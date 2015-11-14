@@ -8,6 +8,7 @@
 // @include        http://www.scribd.com/doc/*
 // @run-at         document-end
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js
+// @require        http://mrrio.github.io/jsPDF/dist/jspdf.debug.js
 // @homepageURL    https://github.com/ayltai/Hack-Scribd-Unblurer
 // @iconURL        http://www.scribd.com/favicon.ico
 // @supportURL     https://github.com/ayltai/Hack-Scribd-Unblurer
@@ -106,5 +107,9 @@ function ButtonClickAction (zEvent) {
   $.when.apply($, downloads).done(function (){
     //--- Get a pdf from all the img links
     console.log(img_links);
+    //--- Dummy code for jsPDF. FIX IT
+    var doc = new jsPDF();
+    doc.text(20,20,"Hello, World!");
+    doc.save('Test.pdf');
   });
 }
